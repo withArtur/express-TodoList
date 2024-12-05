@@ -1,3 +1,3 @@
 # netlify-express
 
-forked of: https://github.com/owenconti/netlify-express/issues
+forked from: https://github.com/owenconti/netlify-express/issues
