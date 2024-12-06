@@ -1,14 +1,17 @@
 // Importiamo i todo, in modo che sia visibile a tutti
-const todos = require('../data/todos');
+const todos = require('../database/todos');
 
 // Index
 function index(req, res) {
     let filteredTodos = todos;
+    // console.log(filteredTodos);
 
+    // filtra stato del todo
     if (req.query.completed) {
         filteredTodos = todos.filter(todo => todo.completed);
     }
 
+    // console.log(filteredTodos);
     res.json(filteredTodos);
 }
 

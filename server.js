@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const port = 3000;
-// const postsRouter = require("./routers/posts");
+const port = 3333;
+const todosRouter = require("./routers/todos");
 
 // Middlewares
 // const checkTime = require('./middlewares/checkTime');
@@ -37,23 +37,23 @@ app.use(function (req, res, next) {
     next();
 });
 
+
 app.get("/", (req, res) => {
     res.send(`Home della API`);
 });
 
-app.get("/todos", (req, res) => {
-    res.json([
-        {
-            id: 1,
-            title: 'Primo todo per oggi',
-            completed: false
-        }
-    ]);
-});
-
+// app.get("/todos", (req, res) => {
+//     res.json([
+//         {
+//             id: 1,
+//             title: 'Primo todo per oggi',
+//             completed: false
+//         }
+//     ]);
+// });
 
 // # Router dei post
-// app.use("/todos", todosRouter);
+app.use("/todos", todosRouter);
 
 // Error handler middleware
 app.use(errorsHandler)

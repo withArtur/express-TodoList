@@ -13,7 +13,7 @@ router.get('/', todoController.index);
 router.get('/:id', todoController.show);
 
 // store
-router.todo('/', todoController.store);
+router.post('/', todoController.store);
 
 // update
 router.put('/:id', todoController.update);
