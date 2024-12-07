@@ -15,7 +15,9 @@ const notFound = require("./middlewares/notFound");
 // app.use(express.static('public'));
 
 // middleware per il parsing del body
-// app.use(express.json());
+app.use(express.json());
+// app.use(express.raw()); // text from v4.17.0+
+app.use(express.urlencoded({ extended: false }));
 
 // Add headers before the routes are defined
 app.use(function (req, res, next) {

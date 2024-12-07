@@ -4,14 +4,12 @@ const todos = require('../database/todos');
 // Index
 function index(req, res) {
     let filteredTodos = todos;
-    // console.log(filteredTodos);
 
     // filtra stato del todo
     if (req.query.completed) {
         filteredTodos = todos.filter(todo => todo.completed);
     }
 
-    // console.log(filteredTodos);
     res.json(filteredTodos);
 }
 
@@ -40,12 +38,16 @@ function store(req, res) {
     // Creiamo un nuovo id incrementando l'ultimo id presente
     const newId = todos[todos.length - 1].id + 1;
 
+    console.log('POST Request body: ', req.body);
+
     // Creiamo un nuovo oggetto todo
     const newTodo = {
         id: newId,
         title: req.body.title,
-        completed: req.body.completed
+        completed: false, // req.body.completed always false on create
     }
+
+    console.log('newTodo: ', newTodo)
 
     // Aggiungiamo il nuovo todo ai todos
     todos.push(newTodo);
@@ -85,7 +87,32 @@ function update(req, res) {
 }
 
 function modify(req, res) {
-    res.send('Modifica parziale del todo ' + req.params.id);
+    console.log('Toggle stato check del todo ' + req.params.id);
+
+    // recuperiamo l'id dall' URL e trasformiamolo in numero
+    const id = parseInt(req.params.id)
+
+    // cerchiamo il todo tramite id
+    const todo = todos.find(todo => todo.id === id);
+
+    // Piccolo controllo
+    if (!todo) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "Todo non trovato"
+        })
+    }
+
+    // Aggiorniamo il todo
+    todo.completed = !todo.completed;
+
+    // Controlliamo i todos
+    console.log(todos);
+
+    // Restituiamo il todo appena aggiornato
+    res.json(todo);
 }
 
 function destroy(req, res) {
@@ -94,6 +121,16 @@ function destroy(req, res) {
 
     // cerchiamo il todo tramite id
     const todo = todos.find(todo => todo.id === id);
+
+    // Piccolo controllo
+    if (!todo) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "Todo non trovato"
+        })
+    }
 
     // Rimuoviamo  il todo dall'array
     todos.splice(todos.indexOf(todo), 1);
