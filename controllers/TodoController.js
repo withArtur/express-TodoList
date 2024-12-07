@@ -135,6 +135,9 @@ function destroy(req, res) {
     // Rimuoviamo  il todo dall'array
     todos.splice(todos.indexOf(todo), 1);
 
+    // Controlliamo i todos
+    console.log('Eliminato', todo);
+
     // Restituiamo lo status corretto
     res.sendStatus(204)
 }
