@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const cors = require('cors');
@@ -8,7 +9,7 @@ app.use(cors({
 }))
 
 // Configurations
-const port = 3333;
+const port = process.env.PORT ?? 3333;
 const todosRouter = require("./routers/todos");
 
 // Middlewares
